@@ -13,7 +13,8 @@ class TareasController extends Controller
     public function index()
     {
         //
-        return view('tareas.index');
+        $tareas = Tareas::all();
+        return view('tareas.index', compact('tareas'));
     }
 
     /**
@@ -22,7 +23,8 @@ class TareasController extends Controller
     public function create()
     {
         //
-        return view('tareas.create');
+        $tareas= new Tareas();
+        return view('tareas.create', compact('tareas'));
     }
 
     /**
@@ -30,19 +32,22 @@ class TareasController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        request()-> validate(Tareas::$rules);
-        $tareaData =request()->except("_token");
-        Tarea::insert($tareaData);
-        return redirect()->route('pet.index');
+        $tarea = new Tareas;
+        $tarea->task_name = $request->task_name;
+        $tarea->task_time = $request->task_time;
+        $tarea->descripcion = $request->descripcion;
+        $tarea->save();
+    
+        return redirect()->route('tareas.index');
     }
-
+    
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //return view();
+        $tareas = Tareas::findOrFail($id);
+        return view('tareas.index',compact('tareas'));
     }
 
     /**
@@ -67,7 +72,7 @@ class TareasController extends Controller
     public function destroy(string $id)
     {
         //
-        Tarea::destroy($id);
+        Tareas::destroy($id);
         return redirect('tareas');
     }
 }

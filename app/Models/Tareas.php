@@ -11,6 +11,6 @@ class Tareas extends Model
 
     static $rules =[
         'task_name' => 'required|string|min:4',
-        'task_time' => 'required|date|min:8'
+        'task_time' => 'required|date|min:8',
     ];
 }

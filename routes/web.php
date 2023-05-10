@@ -16,6 +16,9 @@ use App\Http\Controllers\TareasController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/tareas/form', 'App\Http\Controllers\TareasController@form')->name('tareas.form');
+Route::get('/tareas/create', 'App\Http\Controllers\TareasController@create')->name('tareas.create');
+Route::get('/tareas/show', 'App\Http\Controllers\TareasController@show')->name('tareas.show');
+Route::get('/tareas', [TareasController::class, 'index'])->name('tareas.index');
 
-
-Route::resource('tarea',TareasController::class);
+Route::resource('tarea','App\Http\Controllers\TareasController');
